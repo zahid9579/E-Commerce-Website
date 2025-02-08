@@ -1,0 +1,22 @@
+{% extends 'testapp/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Product Section -->
+<section class="product-section">
+    <h1>Products</h1>
+    <div class="products-container">
+        {% for product in products %}
+        <div class="product-card">
+            <a href="{% url 'product_detail' product.id %}">
+                <img src="{{ product.image.url }}" alt="{{ product.title }}">
+            </a>
+            <h2>{{ product.title }}</h2>
+            <p>Price: ${{ product.price }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

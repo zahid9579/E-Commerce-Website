@@ -1,0 +1,363 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Navbar styling */
+.navbar {
+    background-color: #2E8B57; 
+    color: white;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 10px 30px;
+}
+
+/* Navbar title (Zahid's) */
+.navbar h1 {
+    font-size: 24px;
+    margin-right: auto; 
+}
+
+/* Navbar list */
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 28px;
+}
+
+/* Navbar items */
+.navbar ul li {
+    display: inline;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.navbar ul li a:hover {
+    color: #FFD700; 
+}
+
+/* Login button */
+.btn {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 15px;
+    background-color: #FF4500; 
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    transition:  0.3s;
+    margin-left: 10px;
+}
+
+/* Button hover effect */
+.btn:hover {
+    background-color: #FF6347; 
+}
+
+/* Responsive design for small screens */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .navbar ul {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 0;
+    }
+
+    .btn {
+        margin-top: 10px; 
+    }
+}
+
+
+/* Main Section CSS */
+/* Main Section - Full Page Image */
+.main-section {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; 
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    flex-direction: column;  
+}
+
+/* Image Styling - Fullscreen */
+.main-section img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    z-index: 0;        
+}
+
+/* Overlay Effect for Better Readability */
+.main-section::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); 
+    z-index: 1;        
+}
+
+/* Centering Text */
+.heading,
+.para {
+    color: white;
+    text-align: center;
+    z-index: 2;        
+    width: 80%;
+    margin: 0;         
+}
+
+/* Heading Style */
+.heading {
+    font-size: 48px;
+    font-weight: 600;
+    color:#fff;
+    margin-bottom: 10px; 
+}
+
+/* Paragraph Style */
+.para {
+    font-size: 18px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .heading {
+        font-size: 28px;
+    }
+    .para {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .heading {
+        font-size: 24px;
+    }
+    .para {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .heading {
+        font-size: 20px;
+        width: 90%;
+    }
+    .para {
+        font-size: 12px;
+        width: 90%;
+    }
+}
+
+
+
+/*  Product Section Stylings */
+.product-section {
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f8f8;
+}
+
+.products-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.product-card {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.product-card img {
+    width: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.product-card h2 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.product-card p {
+    font-size: 16px;
+    font-weight: bold;
+    color: #2E8B57;
+}
+
+
+
+
+
+/* Product Detail Page Styling */
+.product-detail-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background-color: #f8f9fa;
+    width: 100%;
+}
+
+/* Product Detail Container */
+.product-detail-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 1200px;
+}
+
+/* Bigger Product Image - 50% Width */
+.product-detail-card img {
+    width: 50%;
+    height: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* Product Info Section */
+.product-info {
+    width: 45%;
+    text-align: left;
+    padding: 20px;
+}
+
+/* Product Title */
+.product-info h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Product Price */
+.product-price {
+    font-size: 22px;
+    font-weight: bold;
+    color: #d9534f;
+    margin-bottom: 10px;
+}
+
+/* Product Description */
+.product-description {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+
+
+/* Buttons Container */
+.product-detail-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content */
+    justify-content: center;
+}
+
+/* Styling for buttons */
+.cart-btn,
+.buy-btn,
+.cancel-btn {
+    width: 80%;
+    max-width: 300px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+/* Add to Cart Button */
+.cart-btn {
+    background-color: #ffcc00;
+    color: #333;
+}
+
+.cart-btn:hover {
+    background-color: #e6b800;
+}
+
+/* Buy Now Button */
+.buy-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.buy-btn:hover {
+    background-color: #218838;
+}
+
+/* Cancel Button */
+.cancel-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.cancel-btn:hover {
+    background-color: #c82333;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .product-detail-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .product-detail-card img {
+        width: 100%;
+        height: auto;
+        max-height: 400px;
+    }
+
+    .product-info {
+        width: 100%;
+        padding: 20px;
+        text-align: left;
+    }
+}
+
+

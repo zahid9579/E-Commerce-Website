@@ -1,0 +1,29 @@
+{% extends 'testapp/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="main-section">
+    <img src="{% static 'images/home image.webp' %}" alt="Home Image">
+    <h1 class="heading">Your Search Ends Here<br> We Have the Latest Trending Accessories</h1>
+    <p class="para">We believe in keeping our store up to date with the latest fashion and trends. Explore our exclusive collection and stay ahead of the style game!</p>
+</section>
+
+<!--  Product Section -->
+<section class="product-section">
+    <h1>Products</h1>
+    <div class="products-container">
+        {% for product in products %}
+        <div class="product-card">
+            <img src="{{ product.image.url }}" alt="{{ product.title }}">
+            <h2>{{ product.title }}</h2>
+            <p>Price: ${{ product.price }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+
+{% endblock %}
+
