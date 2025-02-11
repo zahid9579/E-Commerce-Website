@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
-from testapp.models import ProductModel, CartModel
+from testapp.models import ProductModel, CartModel, OrderModel
 
 
 # User Authentication Starts here
@@ -73,13 +73,27 @@ def search_product_view(request):
 
 
 
-# Add to Cart View
+# # Add to Cart View
 def add_to_cart_view(request, id):
     product = get_object_or_404(ProductModel, pk=id)
-    cart, created = CartModel.objects.get_or_create(user=request.user)  # Get or create cart for user
-    cart.product.add(product) 
+    cart, created = CartModel.objects.get_or_create(user=request.user)
+    cart.products.add(product)  # Use `products` instead of `product`
     cart.save()
-    return redirect('view_cart')  
+    return redirect('view_cart')
+
+
+
+# Order View
+def order_view(request, id):
+    product = get_object_or_404(ProductModel, pk=id)
+    order, created = OrderModel.objects.get_or_create(user=request.user)
+    order.products.add(product)  # Use `products` instead of `product`
+    order.save()
+    return redirect('checkout')
+
+
+
+
 
 
 # View Cart
@@ -92,17 +106,52 @@ def view_cart_view(request):
 def remove_from_cart_view(request, id):
     cart = CartModel.objects.filter(user=request.user).first()
     product = get_object_or_404(ProductModel, pk=id)
-    if cart and product in cart.product.all():
-        cart.product.remove(product)  
+    if cart and product in cart.products.all():
+        cart.products.remove(product)  # Use `products`
         cart.save()
     return redirect('view_cart')
 
 
 
+
 # # Checkout View
-# def checkout_view(request):
+def checkout_view(request):
+    order = OrderModel.objects.filter(user=request.user).first()
+    if order:
+        total_price = order.total_price  # Get total price from the order
+        return render(request, 'testapp/checkout.html', {'order': order, 'total_price': total_price})
+    
+    return redirect('product_list')  # Redirect to product list if no order exists
+
+
+
+# def place_order_view(request):
 #     cart = CartModel.objects.filter(user=request.user).first()
-#     if cart:
-#         total_price = sum(product.price for product in cart.product.all())  # Calculate total
-#         return render(request, 'testapp/checkout.html', {'cart': cart, 'total_price': total_price})
-#     return redirect('view_cart')  # Redirect if no cart found
+    
+#     if cart and cart.product.exists():
+#         order, created = OrderModel.objects.get_or_create(user=request.user)
+#         for product in cart.product.all():
+#             order.products.add(product)
+        
+#         order.save()
+#         cart.product.clear()  # Clear cart after placing order
+        
+#         return redirect('product_list')  # Redirect to product list after order is placed
+    
+#     return redirect('checkout')  # If cart is empty, stay on checkout page
+
+
+def place_order_view(request):
+    cart = CartModel.objects.filter(user=request.user).first()
+    
+    if cart and cart.products.exists():
+        order, created = OrderModel.objects.get_or_create(user=request.user)
+        for product in cart.products.all():
+            order.products.add(product)
+        
+        order.save()
+        cart.products.clear()  # Clear cart after placing order
+        
+        return redirect('product_list')
+    
+    return redirect('checkout')

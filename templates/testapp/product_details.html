@@ -14,9 +14,14 @@
             <p class="product-price">Price: ${{ product.price }}</p>
             <p class="product-description">{{ product.description }}</p>
         </div>
-        <button class="cart-btn">ADD TO CART</button>
-        <button class="buy-btn"> BUY NOW</button>
-        <button class="cancel-btn">CANCEL</button>
+        <a href="{% url 'order' product.id %}">
+            <button class="buy-btn">BUY NOW</button>
+        </a>
+        
+        <a href="{% url 'add_to_cart' product.id %}">
+            <button class="cart-btn">ADD TO CART</button>
+        </a>
+        
     </div>
 </section>
 
