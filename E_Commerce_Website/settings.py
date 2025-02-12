@@ -124,6 +124,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 
+# LOGIN_URL = '/login/'  # Change this to your actual login page URL
+LOGIN_URL = '/accounts/login/'  # Adjust based on your project
+
+
+
 # Add this if you have a 'static' folder inside your project
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),

@@ -3,6 +3,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from testapp.models import ProductModel, CartModel, OrderModel
+from testapp.forms import RegisterForm, LoginForm
 
 
 # User Authentication Starts here
@@ -11,40 +12,35 @@ def homepage_view(request):
     return render(request, 'testapp/homepage.html')
 
 
-# Register view for new User
+# Register View
 def register_view(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = RegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()  # Save new user
+            user = form.save()
             return redirect('login')  # Redirect to login page after registration
     else:
-        form = UserCreationForm()
+        form = RegisterForm()
     
-    return render(request, "register.html", {"form": form})
+    return render(request, "testapp/register.html", {"form": form})
 
-
-# Login view
+# Login View
 def login_view(request):
     if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
+        form = LoginForm(request, data=request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('home')  # Redirect to home page after login
+            user = form.get_user()  # Get authenticated user
+            login(request, user)
+            return redirect('home')  # Redirect to home page after login
     else:
-        form = AuthenticationForm()
+        form = LoginForm()
     
-    return render(request, "login.html", {"form": form})
+    return render(request, "testapp/login.html", {"form": form})
 
-
-# Logout view
+# Logout View
 def logout_view(request):
-    logout(request) 
-    return redirect('/')  
+    logout(request)
+    return redirect('/')
 
 
 # Profile view (Requires login)
@@ -83,15 +79,22 @@ def add_to_cart_view(request, id):
 
 
 
+
 # Order View
+@login_required
 def order_view(request, id):
     product = get_object_or_404(ProductModel, pk=id)
+
+    # Ensure order exists for the user
     order, created = OrderModel.objects.get_or_create(user=request.user)
-    order.products.add(product)  # Use `products` instead of `product`
-    order.save()
+
+    if created:  
+        order.save()  # Save to get an ID
+
+    order.products.add(product)  # Now it's safe to add products
+    order.save(update_fields=['total_price'])  # Recalculate total price
+
     return redirect('checkout')
-
-
 
 
 

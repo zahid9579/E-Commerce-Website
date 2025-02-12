@@ -58,17 +58,24 @@ class OrderModel(models.Model):
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    products = models.ManyToManyField(ProductModel)  # Ensure this exists
+    products = models.ManyToManyField(ProductModel, blank=True)  # Allow blank values
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     payment_status = models.CharField(max_length=20, choices=PAYMENT_STATUS_CHOICES, default='Pending')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def calculate_total_price(self):
+        """Calculate total price only if the order is saved (has an ID)"""
+        if not self.pk:
+            return 0  # Prevent error when the order is new
         return sum(product.price for product in self.products.all())
 
     def save(self, *args, **kwargs):
-        self.total_price = self.calculate_total_price()
-        super().save(*args, **kwargs)
+        """First save the order, then update total price"""
+        is_new = self.pk is None  # Check if this is a new order
+        super().save(*args, **kwargs)  # Save first to get an ID
+        if not is_new:  # Avoid infinite recursion
+            self.total_price = self.calculate_total_price()
+            super().save(update_fields=['total_price'])  # Update only total_price
 
     def __str__(self):
         return f"Order {self.id} by {self.user.username}"

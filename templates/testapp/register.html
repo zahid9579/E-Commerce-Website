@@ -1,0 +1,16 @@
+{% extends 'testapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="register">
+    <div class="reg-form">
+        <h1>Registration Form</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}  <!-- Django will render the form fields -->
+            <button type="submit">Register</button>
+            
+        </form>
+    </div>
+</section>
+{% endblock %}
