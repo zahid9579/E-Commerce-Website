@@ -475,3 +475,149 @@ body {
         padding-top: 20px;
     }
 }
+
+
+/* Register CSS  Style */
+
+/* Registration Section */
+.register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.reg-form {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.reg-form h1 {
+    margin-bottom: 1rem;
+    font-size: 24px;
+    color: #333;
+}
+
+.reg-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.reg-form input, 
+.reg-form select, 
+.reg-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .reg-form {
+        width: 90%;
+        padding: 1.5rem;
+    }
+
+    .reg-form h1 {
+        font-size: 20px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+
+/*  Login CSS  */
+/* Base styles */
+
+/* Login section */
+.login {
+    width: 100%;
+    max-width: 400px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    
+    /* Centering the form */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Form styling */
+.login-form h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.login-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Input fields */
+.login-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Button styling */
+.login-form button {
+    background: #007bff;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.login-form button:hover {
+    background: #0056b3;
+}
+
+/* Register link */
+.login-form p {
+    margin-top: 10px;
+}
+
+.login-form a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.login-form a:hover {
+    text-decoration: underline;
+}
